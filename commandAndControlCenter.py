@@ -19,10 +19,6 @@ def server():
 			targets.append(ip)
 			print(str(targets[clients]) +  "---" + str(ips[clients]))
 		except:
-
-
-
-
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.bind(("192.168.0.108", 1234))

