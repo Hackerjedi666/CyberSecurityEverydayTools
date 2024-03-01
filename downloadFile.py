@@ -24,4 +24,3 @@ with open("sample.txt", "wb") as out_file:
 
 
 
-
