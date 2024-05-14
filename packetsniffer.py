@@ -23,4 +23,4 @@ def process_sniffed_packet(packet):
 
 
 
-sniff("eth0")
+sniff("en0")

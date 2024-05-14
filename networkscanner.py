@@ -27,5 +27,9 @@ def printResult(result_list):
     
 options =  getArguements()
 scanResult = scan(options.target)
-printResult(scanResult)
+
+try:
+    printResult(scanResult)
+except KeyboardInterrupt:
+    print("Detected Ctrl c ........ quiting ")
 
